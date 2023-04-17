@@ -1,0 +1,4 @@
+git restore filename is used to eliminate changes in the working directory copy of the file and fix it to the state of the last commit. In other words, some changes made to the file because the last commit will die.
+
+git restore --staged filename, in another way, is used to discard changes in the staging area (also known as the index) of the file. The staging area is where changes are added before being committed to the repository. So, if you have made changes to a file and added them to the staging area using git add, but then decide that you do not want to include those changes in the next commit, you can use git restore --staged filename to remove the changes from the staging area.
+
