@@ -46,11 +46,11 @@ router.get("/films", function (req, res) {
 
 router.get("/films/:filmId", function (req, res) {
   let filmId = req.params.filmId;
-  filmId = filmId - 1;
   if (filmId <= 0 || isNaN(filmId)) {
     res.send("Sorry! No Movie Exits (Try Some Positive Number)");
   } else if (filmId > films.length) {
     res.send("Sorry! No Movie Try Some Smaller Number");
-  } res.send(films[filmId]);
+  }
+  res.send(films[filmId - 1]);
 });
 module.exports = router;
