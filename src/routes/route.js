@@ -33,11 +33,10 @@ router.get("/movies", function (req, res) {
 router.get("/movies/:indexNumber", function (req, res) {
   const indexNumber = req.params.indexNumber;
 
-  if (isNaN(indexNumber) || indexNumber < 0 || indexNumber >= movies.length) {
-    return res.send("Invalid movie index");
+  if (isNaN(indexNumber) || indexNumber <= 0 || indexNumber >= movies.length) {
+    return res.send("Sorry! No Movie Try Some Another Number");
   }
-  const movie = movies[indexNumber];
-  res.send(movie);
+  res.send(movies[indexNumber - 1]);
 });
 
 router.get("/films", function (req, res) {
