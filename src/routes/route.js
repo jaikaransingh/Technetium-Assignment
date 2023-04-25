@@ -5,51 +5,32 @@ const router = express.Router();
 // router.get("/test-me", function (req, res) {
 //   res.send("This should be working!");
 // });
-const movies = ["3 Idiots", "ChhiChhore", "Rang de Basanti", "Dil Chahta Hai"];
-
-const films = [
-  {
-    id: 1,
-    name: "3 Idiots",
-  },
-  {
-    id: 2,
-    name: "ChhiChhore",
-  },
-  {
-    id: 3,
-    name: "Rang de Basanti",
-  },
-  {
-    id: 4,
-    name: "Dil Chahta Hai",
-  },
-];
-
-router.get("/movies", function (req, res) {
-  res.send(movies);
-});
-
-router.get("/movies/:indexNumber", function (req, res) {
-  const indexNumber = req.params.indexNumber;
-
-  if (isNaN(indexNumber) || indexNumber <= 0 || indexNumber >= movies.length) {
-    return res.send("Sorry! No Movie Try Some Another Number");
+router.get("/sol1", function (req, res) {
+  //logic : sum of numbers is n(n+1)/2..so get sum of all numbers in array. now take sum of numbers till last digit in the array
+  let arr = [1, 2, 3, 5, 6, 7];
+  let missingNumber;
+  let n = arr.length + 1;
+  let sum = (n * (n + 1)) / 2;
+  let arrSum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    arrSum += arr[i];
   }
-  res.send(movies[indexNumber - 1]);
+  missingNumber = sum - arrSum;
+  res.send({ "The Missing Number Is": missingNumber });
 });
 
-router.get("/films", function (req, res) {
-  res.send(films);
-});
-
-router.get("/films/:filmId", function (req, res) {
-  let filmId = req.params.filmId;
-  if (filmId <= 0 || isNaN(filmId)) {
-    res.send("Sorry! No Movie Exits (Try Some Positive Number)");
-  } else if (filmId > films.length) {
-    res.send("Sorry! No Movie Try Some Smaller Number");
+router.get("/sol2", function (req, res) {
+  //logic : sum of n consecutive numbers is [ n * (first + last) / 2  ]..so get sum of all numbers in array. now take sum of n consecutive numbers.. n would be length+1 as 1 number is missing
+  let arr = [33, 34, 35, 37, 38];
+  let missingNumber;
+  let n = arr.length + 1;
+  let sum = (n * (arr[0] + arr[n - 2])) / 2;
+  let arrSum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    arrSum += arr[i];
   }
-  res.send(films[filmId - 1]);
+  missingNumber = sum - arrSum;
+  res.send({ "The Missing Number is": missingNumber });
 });
+
 module.exports = router;
