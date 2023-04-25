@@ -5,32 +5,43 @@ const router = express.Router();
 // router.get("/test-me", function (req, res) {
 //   res.send("This should be working!");
 // });
-router.get("/sol1", function (req, res) {
-  //logic : sum of numbers is n(n+1)/2..so get sum of all numbers in array. now take sum of numbers till last digit in the array
-  let arr = [1, 2, 3, 5, 6, 7];
-  let missingNumber;
-  let n = arr.length + 1;
-  let sum = (n * (n + 1)) / 2;
-  let arrSum = 0;
-  for (let i = 0; i < arr.length; i++) {
-    arrSum += arr[i];
+let players = [
+  {
+    name: "manish",
+    dob: "1/1/1995",
+    gender: "male",
+    city: "jalandhar",
+    sports: ["swimming"],
+  },
+  {
+    name: "gopal",
+    dob: "1/09/1995",
+    gender: "male",
+    city: "delhi",
+    sports: ["soccer"],
+  },
+  {
+    name: "lokesh",
+    dob: "1/1/1990",
+    gender: "male",
+    city: "mumbai",
+    sports: ["soccer"],
+  },
+];
+router.post("/players", function (req, res) {
+  const { name, dob, gender, city, sports } = req.body;
+  // const name =req.body.name
+  if (!name || !dob || !gender || !city || !sports) {
+    return res.send("Please provide all required fields.");
   }
-  missingNumber = sum - arrSum;
-  res.send({ "The Missing Number Is": missingNumber });
-});
-
-router.get("/sol2", function (req, res) {
-  //logic : sum of n consecutive numbers is [ n * (first + last) / 2  ]..so get sum of all numbers in array. now take sum of n consecutive numbers.. n would be length+1 as 1 number is missing
-  let arr = [33, 34, 35, 37, 38];
-  let missingNumber;
-  let n = arr.length + 1;
-  let sum = (n * (arr[0] + arr[n - 2])) / 2;
-  let arrSum = 0;
-  for (let i = 0; i < arr.length; i++) {
-    arrSum += arr[i];
+  for (const player of players) {
+    if (player.name === name) {
+      return res.send("A player with that name already exists.");
+    }
   }
-  missingNumber = sum - arrSum;
-  res.send({ "The Missing Number is": missingNumber });
+  const newPlayer = { name, dob, gender, city, sports };
+  players.push(newPlayer);
+  res.send({ Successfull: players, status: true });
 });
 
 module.exports = router;
