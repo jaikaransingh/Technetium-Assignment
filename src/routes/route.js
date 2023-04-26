@@ -5,43 +5,48 @@ const router = express.Router();
 // router.get("/test-me", function (req, res) {
 //   res.send("This should be working!");
 // });
-let players = [
+let persons = [
   {
-    name: "manish",
-    dob: "1/1/1995",
-    gender: "male",
-    city: "jalandhar",
-    sports: ["swimming"],
+    name: "PK",
+    age: 10,
+    votingStatus: false,
   },
   {
-    name: "gopal",
-    dob: "1/09/1995",
-    gender: "male",
-    city: "delhi",
-    sports: ["soccer"],
+    name: "SK",
+    age: 20,
+    votingStatus: false,
   },
   {
-    name: "lokesh",
-    dob: "1/1/1990",
-    gender: "male",
-    city: "mumbai",
-    sports: ["soccer"],
+    name: "AA",
+    age: 70,
+    votingStatus: false,
+  },
+  {
+    name: "SC",
+    age: 5,
+    votingStatus: false,
+  },
+  {
+    name: "HO",
+    age: 40,
+    votingStatus: false,
   },
 ];
-router.post("/players", function (req, res) {
-  const { name, dob, gender, city, sports } = req.body;
-  // const name =req.body.name
-  if (!name || !dob || !gender || !city || !sports) {
-    return res.send("Please provide all required fields.");
+
+router.post("/voting", function (req, res) {
+  const age = req.query.votingAge;
+
+  if (!age) {
+    res.send("Enter some Value");
   }
-  for (const player of players) {
-    if (player.name === name) {
-      return res.send("A player with that name already exists.");
+  for (let i = 0; i < persons.length; i++) {
+    if (persons[i].age >= age) {
+      persons[i].votingStatus = true;
     }
   }
-  const newPlayer = { name, dob, gender, city, sports };
-  players.push(newPlayer);
-  res.send({ Successfull: players, status: true });
+  const eligible = persons.filter((person) => person.votingStatus);
+
+  res.send(eligible);
 });
 
 module.exports = router;
