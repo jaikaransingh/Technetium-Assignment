@@ -1,11 +1,15 @@
-const { count } = require("console");
-const AuthorModel = require("../models/authorModel");
-const { get } = require("http");
+const AuthorModel = require("../models/authormodel");
 
 const createAuthor = async function (req, res) {
-  let data = req.body;
-  let savedData = await AuthorModel.create(data);
-  res.send({ msg: savedData });
+  let author = req.body;
+  let authorCreated = await AuthorModel.create(author);
+  res.send({ data: authorCreated });
+};
+
+const getAuthorsData = async function (req, res) {
+  let authors = await AuthorModel.find();
+  res.send({ data: authors });
 };
 
 module.exports.createAuthor = createAuthor;
+module.exports.getAuthorsData = getAuthorsData;
