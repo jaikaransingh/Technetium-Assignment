@@ -6,13 +6,13 @@ const bookSchema = new mongoose.Schema(
     name: String,
     author_id: {
       type: ObjectId,
-      ref: "LibraryAuthor",
+      ref: "libraryauthors",
       require: true,
     },
     publisher_id: {
       require: true,
       type: ObjectId,
-      ref: "Publisher",
+      ref: "publishers",
     },
     isHardCover: {
       type: Boolean,
@@ -24,4 +24,4 @@ const bookSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("LibraryBook", bookSchema);
+module.exports = mongoose.model("librarybooks", bookSchema);

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const authorSchema2 = new mongoose.Schema(
+const authorSchema = new mongoose.Schema(
   {
     authorName: String,
     age: Number,
@@ -10,4 +10,4 @@ const authorSchema2 = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("LibraryAuthor", authorSchema2);
+module.exports = mongoose.model("libraryauthors", authorSchema);
