@@ -7,21 +7,20 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+mongoose.set("strictQuery", true);
 
-mongoose.connect("mongodb+srv://functionup-cohort:G0Loxqc9wFEGyEeJ@cluster0.rzotr.mongodb.net/Pritesh8769811-DB?retryWrites=true&w=majority", {
-    useNewUrlParser: true
-})
-.then( () => console.log("MongoDb is connected"))
-.catch ( err => console.log(err) )
+mongoose
+  .connect(
+    "mongodb+srv://jaisingh:gBVXaJT4AszRIbne@cluster0.16ziqr2.mongodb.net/Middleware-DB?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+    }
+  )
+  .then(() => console.log("MongoDb is connected"))
+  .catch((err) => console.log(err));
+
 
 app.use('/', route);
-// unreachable becuase the cycle has terminated
-app.use(
-    function (req, res, next) {
-        console.log ("inside GLOBAL MW");
-        next();
-  }
-);
 
 
 app.listen(process.env.PORT || 3000, function () {
