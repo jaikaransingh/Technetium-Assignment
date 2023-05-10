@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userController= require("../controllers/userController");
-const { authentication } = require('../middleware/authentication');
+const { authentication } = require('../middleware/authMiddleware');
 router.get("/test-me", function (req, res) {
     res.send("My first ever api!")
 })
