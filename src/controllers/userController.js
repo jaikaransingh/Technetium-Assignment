@@ -37,9 +37,12 @@ const loginUser = async function (req, res) {
 const getUserData = async function (req, res) {
   let userId = req.params.userId;
   let userDetails = await userModel.findById(userId);
+  // let userPresent = 
   if (!userDetails)
     return res.send({ status: false, msg: "No such user exists" });
-
+  else if (userDetails.isDeleted == true) {
+    return res.send({ status: false, msg: "User is Deleted User" });
+  }
   res.send({ status: true, data: userDetails });
   // Note: Try to see what happens if we change the secret while decoding the token
 };
@@ -57,14 +60,9 @@ const updateUser = async function (req, res) {
   res.send({ status: true, data: updatedUser });
 };
 const deleteUser = async function (req, res) {
-  let userId = req.params.userId;
-let user = await userModel.findById(userId);
-//Return an error if no user with the given id exists in the db
-if (!user) {
-  return res.send("No such user exists");
-}
-let deletedUser = await userModel.deleteMany({ _id: userId });
-res.send({ status: true, data: deletedUser });
+   const userId=req.params.userId
+  const userDelete = await userModel.findByIdAndUpdate(userId,{$set:{isDeleted:true}},{new:true})
+        res.send({status:true, data: userDelete})
 };
 module.exports.createUser = createUser;
 module.exports.getUserData = getUserData;
