@@ -37,7 +37,6 @@ const loginUser = async function (req, res) {
 const getUserData = async function (req, res) {
   let userId = req.params.userId;
   let userDetails = await userModel.findById(userId);
-  // let userPresent = 
   if (!userDetails)
     return res.send({ status: false, msg: "No such user exists" });
   else if (userDetails.isDeleted == true) {
